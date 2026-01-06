@@ -103,11 +103,11 @@ export default function Home() {
 
           <div className="flex flex-col items-center w-32 md:w-auto">
             <div className="flex items-center gap-3 justify-center">
-              <h2 className="text-3xl md:text-5xl font-thin tracking-tighter text-foreground text-center truncate">
+              <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-foreground text-center truncate">
                 {weekday}
               </h2>
             </div>
-            <p className="text-xs md:text-sm font-medium tracking-[0.2em] text-foreground/40 uppercase mt-1">
+            <p className="text-xs md:text-sm font-semibold tracking-[0.15em] text-foreground/60 uppercase mt-1">
               {fullDate}
             </p>
           </div>
