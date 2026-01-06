@@ -9,21 +9,14 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="group relative w-16 h-8 rounded-full bg-gray-200 dark:bg-zinc-800 border border-black/5 dark:border-white/10 shadow-inner transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="p-3 rounded-full bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300/50 dark:hover:bg-white/20 transition-all active:scale-95 text-foreground/80 hover:text-foreground backdrop-blur-md"
             aria-label="Toggle Theme"
         >
-            {/* Sliding Thumb Container */}
-            <div
-                className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white shadow-md transform transition-transform duration-300 cubic-bezier(0.4, 0.0, 0.2, 1) flex items-center justify-center ${theme === 'dark' ? 'translate-x-8' : 'translate-x-0'
-                    }`}
-            >
-                {/* Icons inside the thumb */}
-                {theme === 'dark' ? (
-                    <Moon className="w-3.5 h-3.5 text-indigo-500" fill="currentColor" fillOpacity={0.1} />
-                ) : (
-                    <Sun className="w-3.5 h-3.5 text-orange-400" fill="currentColor" fillOpacity={0.2} />
-                )}
-            </div>
+            {theme === 'dark' ? (
+                <Moon className="w-5 h-5" />
+            ) : (
+                <Sun className="w-5 h-5" />
+            )}
         </button>
     );
 }
