@@ -75,6 +75,40 @@ export default function Home() {
 
   const { weekday, fullDate } = getDynamicDate();
 
+  // Determine the current active meal based on time (Smart Logic)
+  const getActiveMealType = () => {
+    const now = new Date();
+    const minutes = now.getHours() * 60 + now.getMinutes();
+
+    const bfEnd = 9 * 60 + 30;     // 9:30 AM
+    const lunchEnd = 14 * 60 + 30; // 2:30 PM
+    const snacksEnd = 18 * 60;     // 6:00 PM
+    const dinnerEnd = 21 * 60 + 30; // 9:30 PM
+
+    if (minutes <= bfEnd) return 'Breakfast';
+    if (minutes <= lunchEnd) return 'Lunch';
+    if (minutes <= snacksEnd) return 'Snacks';
+    if (minutes <= dinnerEnd) return 'Dinner';
+    return 'Breakfast'; // Next day breakfast
+  };
+
+  const [activeMeal, setActiveMeal] = useState<string>('');
+
+  useEffect(() => {
+    const current = getActiveMealType();
+    setActiveMeal(current);
+
+    // Auto-scroll on mobile
+    if (window.innerWidth < 768 && activeDayIdx === todayIdx) {
+      setTimeout(() => {
+        const element = document.getElementById(`mobile-${current}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    }
+  }, [activeDayIdx, todayIdx]);
+
   const handlePrev = () => {
     setActiveDayIdx(prev => (prev > 0 ? prev - 1 : data.days.length - 1));
   };
@@ -124,17 +158,8 @@ export default function Home() {
           {['Breakfast', 'Lunch', 'Snacks', 'Dinner'].map((type) => {
             const meal = activeDay.meals.find(m => m.type.toLowerCase().includes(type.toLowerCase()));
 
-            // Determine if this is the active meal "Right Now"
-            const now = new Date();
-            const currentHour = now.getHours();
-            let isCurrentTime = false;
-
-            if (activeDayIdx === todayIdx) { // Only highlight on "Today"
-              if (type === 'Breakfast' && currentHour >= 4 && currentHour < 11) isCurrentTime = true;
-              else if (type === 'Lunch' && currentHour >= 11 && currentHour < 16) isCurrentTime = true;
-              else if (type === 'Snacks' && currentHour >= 16 && currentHour < 19) isCurrentTime = true;
-              else if (type === 'Dinner' && (currentHour >= 19 || currentHour < 4)) isCurrentTime = true;
-            }
+            // Smart Logic: Highlight if it matches the calculated active meal
+            const isCurrentTime = activeDayIdx === todayIdx && activeMeal === type;
 
             return (
               <MealCard
@@ -152,11 +177,14 @@ export default function Home() {
       <div className="relative z-10 md:hidden flex-1 overflow-y-auto px-4 py-4 space-y-4 pb-24 no-scrollbar">
         {['Breakfast', 'Lunch', 'Snacks', 'Dinner'].map((type) => {
           const meal = activeDay.meals.find(m => m.type.toLowerCase().includes(type.toLowerCase()));
+          const isCurrentTime = activeDayIdx === todayIdx && activeMeal === type;
+
           return (
-            <div key={type} className="min-h-[150px] h-auto">
+            <div key={type} id={`mobile-${type}`} className="min-h-[150px] h-auto scroll-mt-24">
               <MealCard
                 type={type}
                 items={meal ? meal.items : ['—']}
+                isActive={isCurrentTime}
               />
             </div>
           );
