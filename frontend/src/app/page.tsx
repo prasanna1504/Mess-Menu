@@ -60,6 +60,7 @@ export default function Home() {
 
   const activeDay = data.days[activeDayIdx];
 
+  const [activeMeal, setActiveMeal] = useState<string>('');
   const [currentDateInfo, setCurrentDateInfo] = useState({ weekday: '', fullDate: '' });
 
   useEffect(() => {
