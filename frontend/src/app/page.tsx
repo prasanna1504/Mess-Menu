@@ -68,7 +68,7 @@ export default function Home() {
     targetDate.setDate(now.getDate() + diffDays);
 
     return {
-      weekday: activeDay.day, // Use the day name from the data to be safe
+      weekday: targetDate.toLocaleDateString('en-US', { weekday: 'long' }), // Full name (e.g. Monday)
       fullDate: targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     };
   };
@@ -90,11 +90,7 @@ export default function Home() {
 
       {/* Header / Navigation */}
       <header className="relative z-20 flex-none h-24 flex flex-col items-center justify-center">
-        {/* Top Controls */}
-        <div className="absolute top-6 left-6 flex items-center gap-3">
-          <img src="/icon.png" alt="Logo" className="w-10 h-10 rounded-xl shadow-md" />
-          <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-400 to-purple-600 bg-clip-text text-transparent">Mess Mate</span>
-        </div>
+        {/* Top Controls: Logo Removed as per request */}
 
         <div className="absolute top-6 right-6">
           <ThemeToggle />
