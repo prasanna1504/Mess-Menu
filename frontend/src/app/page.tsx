@@ -60,41 +60,38 @@ export default function Home() {
 
   const activeDay = data.days[activeDayIdx];
 
-  // Calculate dynamic date relative to "today"
-  const getDynamicDate = () => {
+  const [currentDateInfo, setCurrentDateInfo] = useState({ weekday: '', fullDate: '' });
+
+  useEffect(() => {
+    // Determine the active meal and date on mount (Client-side only)
     const now = new Date();
+
+    // Set Date Info
+    // If we are viewing a different day, calculate relative date
     const diffDays = activeDayIdx - todayIdx;
     const targetDate = new Date(now);
     targetDate.setDate(now.getDate() + diffDays);
 
-    return {
-      weekday: targetDate.toLocaleDateString('en-US', { weekday: 'long' }), // Full name (e.g. Monday)
+    setCurrentDateInfo({
+      weekday: targetDate.toLocaleDateString('en-US', { weekday: 'long' }),
       fullDate: targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    });
+
+    const getActiveMealType = () => {
+      const minutes = now.getHours() * 60 + now.getMinutes();
+
+      const bfEnd = 9 * 60 + 30;     // 9:30 AM
+      const lunchEnd = 14 * 60 + 30; // 2:30 PM
+      const snacksEnd = 18 * 60;     // 6:00 PM
+      const dinnerEnd = 21 * 60 + 30; // 9:30 PM
+
+      if (minutes <= bfEnd) return 'Breakfast';
+      if (minutes <= lunchEnd) return 'Lunch';
+      if (minutes <= snacksEnd) return 'Snacks';
+      if (minutes <= dinnerEnd) return 'Dinner';
+      return 'Breakfast'; // Next day breakfast
     };
-  };
 
-  const { weekday, fullDate } = getDynamicDate();
-
-  // Determine the current active meal based on time (Smart Logic)
-  const getActiveMealType = () => {
-    const now = new Date();
-    const minutes = now.getHours() * 60 + now.getMinutes();
-
-    const bfEnd = 9 * 60 + 30;     // 9:30 AM
-    const lunchEnd = 14 * 60 + 30; // 2:30 PM
-    const snacksEnd = 18 * 60;     // 6:00 PM
-    const dinnerEnd = 21 * 60 + 30; // 9:30 PM
-
-    if (minutes <= bfEnd) return 'Breakfast';
-    if (minutes <= lunchEnd) return 'Lunch';
-    if (minutes <= snacksEnd) return 'Snacks';
-    if (minutes <= dinnerEnd) return 'Dinner';
-    return 'Breakfast'; // Next day breakfast
-  };
-
-  const [activeMeal, setActiveMeal] = useState<string>('');
-
-  useEffect(() => {
     const current = getActiveMealType();
     setActiveMeal(current);
 
@@ -108,6 +105,8 @@ export default function Home() {
       }, 500);
     }
   }, [activeDayIdx, todayIdx]);
+
+  const { weekday, fullDate } = currentDateInfo;
 
   const handlePrev = () => {
     setActiveDayIdx(prev => (prev > 0 ? prev - 1 : data.days.length - 1));
