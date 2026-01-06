@@ -89,32 +89,31 @@ export default function Home() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/40 via-background to-background dark:from-gray-900/40 dark:via-[#050505] dark:to-[#050505] pointer-events-none transition-colors duration-500" />
 
       {/* Header / Navigation */}
-      <header className="relative z-20 flex-none h-24 flex flex-col items-center justify-center">
-        {/* Top Controls: Logo Removed as per request */}
-
-        <div className="absolute top-6 right-6">
+      <header className="relative z-20 flex-none h-24 flex items-center justify-center">
+        {/* Toggle - Moved slightly higher and smaller on mobile */}
+        <div className="absolute top-4 right-4 md:top-6 md:right-6 scale-90 md:scale-100 origin-top-right z-30">
           <ThemeToggle />
         </div>
 
-        <div className="flex items-center gap-6 md:gap-12">
-          <button onClick={handlePrev} className="p-3 text-foreground/20 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all">
-            <ChevronLeft className="w-5 h-5" />
+        {/* Navigation - Reduced gap for mobile safety */}
+        <div className="flex items-center gap-2 md:gap-12 mt-4 md:mt-0">
+          <button onClick={handlePrev} className="p-2 md:p-3 text-foreground/20 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all">
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          <div className="flex flex-col items-center">
-            {/* Day Only (Logo Moved) */}
-            <div className="flex items-center gap-3">
-              <h2 className="text-2xl md:text-5xl font-thin tracking-tighter text-foreground text-center">
+          <div className="flex flex-col items-center w-32 md:w-auto">
+            <div className="flex items-center gap-3 justify-center">
+              <h2 className="text-xl md:text-5xl font-thin tracking-tighter text-foreground text-center truncate">
                 {weekday}
               </h2>
             </div>
-            <p className="text-[9px] md:text-[10px] font-medium tracking-[0.2em] text-foreground/40 uppercase mt-2">
+            <p className="text-[9px] md:text-[10px] font-medium tracking-[0.2em] text-foreground/40 uppercase mt-1">
               {fullDate}
             </p>
           </div>
 
-          <button onClick={handleNext} className="p-3 text-foreground/20 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all">
-            <ChevronRight className="w-5 h-5" />
+          <button onClick={handleNext} className="p-2 md:p-3 text-foreground/20 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all">
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
       </header>
