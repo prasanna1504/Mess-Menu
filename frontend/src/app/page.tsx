@@ -32,34 +32,6 @@ export default function Home() {
     loadMenu();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-background text-foreground">
-        <Loader2 className="w-8 h-8 animate-spin opacity-50" />
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <h1 className="text-2xl font-light tracking-tight mb-2">No Menu Found</h1>
-        <p className="text-foreground/40 font-light">Please ask the admin to upload a menu.</p>
-      </div>
-    );
-  }
-
-  if (data.days.length === 0) {
-    return (
-      <div className="h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <h1 className="text-2xl font-light tracking-tight mb-2">Empty Menu</h1>
-        <p className="text-foreground/40 font-light">The menu data is empty.</p>
-      </div>
-    );
-  }
-
-  const activeDay = data.days[activeDayIdx];
-
   const [activeMeal, setActiveMeal] = useState<string>('');
   const [currentDateInfo, setCurrentDateInfo] = useState({ weekday: '', fullDate: '' });
 
@@ -68,7 +40,6 @@ export default function Home() {
     const now = new Date();
 
     // Set Date Info
-    // If we are viewing a different day, calculate relative date
     const diffDays = activeDayIdx - todayIdx;
     const targetDate = new Date(now);
     targetDate.setDate(now.getDate() + diffDays);
@@ -106,6 +77,34 @@ export default function Home() {
       }, 500);
     }
   }, [activeDayIdx, todayIdx]);
+
+  if (loading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-background text-foreground">
+        <Loader2 className="w-8 h-8 animate-spin opacity-50" />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground">
+        <h1 className="text-2xl font-light tracking-tight mb-2">No Menu Found</h1>
+        <p className="text-foreground/40 font-light">Please ask the admin to upload a menu.</p>
+      </div>
+    );
+  }
+
+  if (data.days.length === 0) {
+    return (
+      <div className="h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground">
+        <h1 className="text-2xl font-light tracking-tight mb-2">Empty Menu</h1>
+        <p className="text-foreground/40 font-light">The menu data is empty.</p>
+      </div>
+    );
+  }
+
+  const activeDay = data.days[activeDayIdx];
 
   const { weekday, fullDate } = currentDateInfo;
 
