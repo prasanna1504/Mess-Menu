@@ -2,5 +2,11 @@ django
 djangorestframework
 pillow
 google-generativeai
-python-dotenv
+pillow
+djangorestframework
 django-cors-headers
+python-dotenv
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
