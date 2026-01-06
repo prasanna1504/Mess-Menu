@@ -91,6 +91,11 @@ export default function Home() {
       {/* Header / Navigation */}
       <header className="relative z-20 flex-none h-24 flex flex-col items-center justify-center">
         {/* Top Controls */}
+        <div className="absolute top-6 left-6 flex items-center gap-3">
+          <img src="/icon.png" alt="Logo" className="w-10 h-10 rounded-xl shadow-md" />
+          <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-400 to-purple-600 bg-clip-text text-transparent">Mess Mate</span>
+        </div>
+
         <div className="absolute top-6 right-6">
           <ThemeToggle />
         </div>
@@ -101,10 +106,9 @@ export default function Home() {
           </button>
 
           <div className="flex flex-col items-center">
-            {/* Logo & Day */}
+            {/* Day Only (Logo Moved) */}
             <div className="flex items-center gap-3">
-              <img src="/icon.png" alt="Logo" className="w-8 h-8 rounded-lg shadow-sm" />
-              <h2 className="text-3xl font-light tracking-tight text-foreground/90">
+              <h2 className="text-4xl font-thin tracking-tighter text-foreground">
                 {weekday}
               </h2>
             </div>
