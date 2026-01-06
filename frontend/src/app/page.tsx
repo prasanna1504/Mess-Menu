@@ -104,11 +104,11 @@ export default function Home() {
           <div className="flex flex-col items-center">
             {/* Day Only (Logo Moved) */}
             <div className="flex items-center gap-3">
-              <h2 className="text-4xl font-thin tracking-tighter text-foreground">
+              <h2 className="text-2xl md:text-5xl font-thin tracking-tighter text-foreground text-center">
                 {weekday}
               </h2>
             </div>
-            <p className="text-[10px] font-medium tracking-[0.2em] text-foreground/40 uppercase mt-2">
+            <p className="text-[9px] md:text-[10px] font-medium tracking-[0.2em] text-foreground/40 uppercase mt-2">
               {fullDate}
             </p>
           </div>
@@ -150,11 +150,11 @@ export default function Home() {
       </div>
 
       {/* Mobile Content */}
-      <div className="relative z-10 md:hidden flex-1 overflow-y-auto px-4 py-6 space-y-4 pb-24 no-scrollbar">
+      <div className="relative z-10 md:hidden flex-1 overflow-y-auto px-4 py-4 space-y-4 pb-24 no-scrollbar">
         {['Breakfast', 'Lunch', 'Snacks', 'Dinner'].map((type) => {
           const meal = activeDay.meals.find(m => m.type.toLowerCase().includes(type.toLowerCase()));
           return (
-            <div key={type} className="h-[400px]">
+            <div key={type} className="min-h-[150px] h-auto">
               <MealCard
                 type={type}
                 items={meal ? meal.items : ['—']}
