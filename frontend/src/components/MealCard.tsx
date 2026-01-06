@@ -89,7 +89,7 @@ const MealCard: React.FC<MealCardProps> = ({ type, items, isActive = false }) =>
                 <ul className="flex-1 flex flex-col items-center justify-start gap-4 text-center">
                     {items.map((item, index) => (
                         <li key={index} className={clsx(
-                            "text-xl font-light tracking-wide leading-relaxed transition-colors",
+                            "text-2xl font-light tracking-wide leading-relaxed transition-colors",
                             isActive ? "text-gray-900 dark:text-white font-normal" : "text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white"
                         )}>
                             {item}
