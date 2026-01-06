@@ -95,15 +95,15 @@ export default function Home() {
           <ThemeToggle />
         </div>
 
-        {/* Navigation - Reduced gap for mobile safety */}
-        <div className="flex items-center gap-2 md:gap-12 mt-4 md:mt-0">
+        {/* Navigation - Increased gap for mobile safety */}
+        <div className="flex items-center gap-6 md:gap-12 mt-4 md:mt-0">
           <button onClick={handlePrev} className="p-2 md:p-3 text-foreground/20 hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all">
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          <div className="flex flex-col items-center w-32 md:w-auto">
+          <div className="flex flex-col items-center w-36 md:w-auto">
             <div className="flex items-center gap-3 justify-center">
-              <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-foreground text-center truncate">
+              <h2 className="text-3xl md:text-5xl font-thin tracking-tighter text-foreground text-center truncate">
                 {weekday}
               </h2>
             </div>

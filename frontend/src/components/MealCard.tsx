@@ -75,7 +75,7 @@ const MealCard: React.FC<MealCardProps> = ({ type, items, isActive = false }) =>
                 {/* Header */}
                 <div className="flex flex-col items-center justify-center mb-8">
                     <h3 className={clsx(
-                        "text-3xl font-medium tracking-wide uppercase transition-colors",
+                        "text-3xl font-thin tracking-tighter uppercase transition-colors",
                         isActive ? "text-black dark:text-white" : "text-gray-800 dark:text-white/90"
                     )}>
                         {type}
