@@ -21,7 +21,11 @@ export default function Home() {
         // Find today's index based on Indian Standard Time logic (or local device time to be simple)
         const now = new Date();
         const currentWeekday = now.toLocaleDateString('en-US', { weekday: 'long' });
-        const idx = menu.days.findIndex(d => d.day === currentWeekday);
+        const idx = menu.days.findIndex(d => {
+          const dName = d.day.toLowerCase().trim();
+          const target = currentWeekday.toLowerCase().trim();
+          return dName === target || dName.startsWith(target.substring(0, 3)) || target.startsWith(dName.substring(0, 3));
+        });
 
         const validIdx = idx !== -1 ? idx : 0;
         setTodayIdx(validIdx);
